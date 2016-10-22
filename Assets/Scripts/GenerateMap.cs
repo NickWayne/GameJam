@@ -20,7 +20,7 @@ public class GenerateMap : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        BackgroundWidth = GetSize(Background, true);
+        BackgroundWidth = GetSize(Background, true) / 3;
         BackgroundHeight = GetSize(Background, false);
 
         GroundWidth = GetSize(Ground, true);
@@ -28,13 +28,13 @@ public class GenerateMap : MonoBehaviour {
 
         double ratio = (GroundWidth / BackgroundWidth);
 
-        int GameWidth = 2;
+        int GameWidth = 4;
         TimeLeft = 10.0f;
 
         // Create backgrounds
-        int numBackground = (int) (ratio * GameWidth);
+        int numBackground = (int) (ratio * GameWidth - 3);
         for (int i = 0; i < numBackground; i++) {
-            Instantiate(BackgroundImages[Random.Range(0, BackgroundImages.Length)], (new Vector3(i * BackgroundWidth - BackgroundWidth, BackgroundHeight / 2 + GroundHeight / 2 - 0.3f, 0.5f)), Quaternion.identity);
+            Instantiate(BackgroundImages[Random.Range(0, BackgroundImages.Length)], (new Vector3(i * BackgroundWidth - BackgroundWidth, GroundHeight / 2 - 0.3f, 0.5f)), Quaternion.identity);
         }
 
         // Create Floors
@@ -42,11 +42,11 @@ public class GenerateMap : MonoBehaviour {
         floorObjects = new GameObject[numGround];
         for (int i = 0; i < numGround; i++)
         {
-            floorObjects[i] = (GameObject) Instantiate(Ground, (new Vector3(i * GroundWidth, 0, 0)), Quaternion.identity);
+            floorObjects[i] = (GameObject) Instantiate(Ground, (new Vector3(i * GroundWidth, 0)), Ground.transform.rotation);
         }
 
         // Create the last door
-        Instantiate(Finish, (new Vector3(GameWidth * GroundWidth - GroundWidth / 2, 0, -0.14f)), Quaternion.identity);
+        Instantiate(Finish, (new Vector3(GameWidth * GroundWidth - GroundWidth / 2, 0, -0.14f)), Finish.transform.rotation);
 
         placeObstacles();
 
@@ -71,7 +71,7 @@ public class GenerateMap : MonoBehaviour {
         int numObjects = 15;
         for (int i = 0; i < numObjects; i++)
         {
-            Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], new Vector3(Random.Range(5, 2 * GroundWidth - GroundWidth / 2 - 5), .32f + GroundHeight / 2, 0), Quaternion.identity);
+            Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], new Vector3(Random.Range(5, 4  * GroundWidth - GroundWidth / 2 - 5), .32f + GroundHeight / 2, 0), Quaternion.identity);
         }
         
     }
@@ -79,7 +79,5 @@ public class GenerateMap : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        TimeLeft -= Time.deltaTime;
-        GUI.Label(new Rect(10, 10, 100, 20), string.Format("{0:0.00}",TimeLeft));
     }
 }

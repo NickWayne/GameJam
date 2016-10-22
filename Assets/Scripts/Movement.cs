@@ -17,9 +17,8 @@ public class Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         var move = new Vector3(1, 0, 0);
-        // transform.position += move * (float) speed * Time.deltaTime;
 
-        speed += Time.deltaTime * 0.01;
+        GetComponent<Animator>().speed = GetComponent<Rigidbody2D>().velocity.x / 8f;
 
 
         foreach (GameObject o in MapGenerator.GetComponent<GenerateMap>().floorObjects)
