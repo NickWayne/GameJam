@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Movement : MonoBehaviour {
 
-    public int speed;
+    public double speed;
     private bool grounded;
     public GameObject ground;
     public GameObject MapGenerator;
@@ -17,7 +17,9 @@ public class Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         var move = new Vector3(1, 0, 0);
-        transform.position += move * speed * Time.deltaTime;
+        transform.position += move * (float) speed * Time.deltaTime;
+
+        speed += Time.deltaTime * 0.01;
 
 
         foreach (GameObject o in MapGenerator.GetComponent<GenerateMap>().floorObjects)
