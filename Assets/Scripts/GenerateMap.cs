@@ -43,6 +43,8 @@ public class GenerateMap : MonoBehaviour {
             floorObjects[i] = (GameObject) Instantiate(Ground, (new Vector3(i * GroundWidth, 0, 0)), Quaternion.identity);
         }
 
+        Instantiate(Finish, (new Vector3(GameWidth * GroundWidth - GroundWidth / 2, 0, -0.25f)), Quaternion.identity);
+
         placeObstacles();
 
 
@@ -63,10 +65,10 @@ public class GenerateMap : MonoBehaviour {
 
     private void placeObstacles()
     {
-        int numObjects = 5;
+        int numObjects = 15;
         for (int i = 0; i < numObjects; i++)
         {
-            Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], new Vector3(Random.Range(5, 25), .32f + GroundHeight / 2, 0), Quaternion.identity);
+            Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], new Vector3(Random.Range(5, 2 * GroundWidth - 5), .32f + GroundHeight / 2, 0), Quaternion.identity);
         }
         
     }

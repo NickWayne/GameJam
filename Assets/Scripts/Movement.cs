@@ -5,6 +5,7 @@ public class Movement : MonoBehaviour {
 
     public double speed;
     private bool grounded;
+
     public GameObject ground;
     public GameObject MapGenerator;
 
@@ -18,13 +19,11 @@ public class Movement : MonoBehaviour {
 	void Update () {
         var move = new Vector3(1, 0, 0);
         // transform.position += move * (float) speed * Time.deltaTime;
-
-        speed += Time.deltaTime * 0.01;
-
-
+        GetComponent<Animator>().speed = GetComponent<Rigidbody2D>().velocity.x / 8f;
+        
         foreach (GameObject o in MapGenerator.GetComponent<GenerateMap>().floorObjects)
         {
-            if (GetComponent<Rigidbody2D>().IsTouching(o.GetComponent<BoxCollider2D>()))
+            if (GetComponent<Rigidbody2D>().IsTouching(o.GetComponent<BoxCollider2D>()) && GetComponent<Rigidbody2D>().velocity.y == 0)
             {
                 grounded = true;
             }
