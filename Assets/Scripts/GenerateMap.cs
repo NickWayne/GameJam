@@ -13,7 +13,7 @@ public class GenerateMap : MonoBehaviour {
     private float BackgroundHeight;
     private float GroundWidth;
     private float GroundHeight;
-    private GameObject[] floorObjects;
+    public GameObject[] floorObjects;
 
     // Use this for initialization
     void Start () {
@@ -34,7 +34,7 @@ public class GenerateMap : MonoBehaviour {
         floorObjects = new GameObject[numGround];
         for (int i = 0; i < numGround; i++)
         {
-            floorObjects[i] = (GameObject) Instantiate(Ground, (new Vector3(i * BackgroundWidth - BackgroundWidth / 2, 0, 0)), Quaternion.identity);
+            Instantiate(Ground, (new Vector3(i * BackgroundWidth - BackgroundWidth / 2, 0, 0)), Quaternion.identity);
         }
         
 	}

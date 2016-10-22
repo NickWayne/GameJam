@@ -7,7 +7,6 @@ public class Movement : MonoBehaviour {
     private bool grounded;
     public GameObject MapGenerator;
 
-
 	// Use this for initialization
 	void Start ()
     {
@@ -27,14 +26,14 @@ public class Movement : MonoBehaviour {
             grounded = false;
         }
 
-
+        /*
         else {
-            foreach (GameObject o in MapGenerator.getFloorObjects())
+            foreach (GameObject o in MapGenerator.floorObjects)
             {
                 (GetComponent<Rigidbody2D>().IsTouching(ground.GetComponent<BoxCollider2D>()));
             }
             
             grounded = true;
-        }
+        }*/
     }
 }
