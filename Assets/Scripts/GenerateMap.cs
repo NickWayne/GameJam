@@ -15,6 +15,7 @@ public class GenerateMap : MonoBehaviour {
     private float GroundWidth;
     private float GroundHeight;
     public GameObject[] floorObjects;
+    private float TimeLeft;
 
     // Use this for initialization
     void Start () {
@@ -30,6 +31,7 @@ public class GenerateMap : MonoBehaviour {
         Debug.Log(ratio);
 
         int GameWidth = 2;
+        TimeLeft = 10.0f;
 
         int numBackground = (int) (ratio * GameWidth);
         for (int i = 0; i < numBackground; i++) {
@@ -76,6 +78,7 @@ public class GenerateMap : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        TimeLeft -= Time.deltaTime;
+        GUI.Label(new Rect(10, 10, 100, 20), string.Format("{0:0.00}",TimeLeft));
+    }
 }
