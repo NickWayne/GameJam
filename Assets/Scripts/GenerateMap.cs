@@ -4,9 +4,10 @@ using System.Collections;
 public class GenerateMap : MonoBehaviour {
 
     public GameObject Player;
-    public GameObject Locker;
     public GameObject Background;
     public GameObject Ground;
+    public GameObject Finish;
+    public GameObject[] Obstacles;
 
     private Random random;
     private float BackgroundWidth;
@@ -19,31 +20,58 @@ public class GenerateMap : MonoBehaviour {
     void Start () {
         random = new Random();
 
-        BackgroundWidth = Background.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-        BackgroundHeight = Background.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+        BackgroundWidth = GetSize(Background, true);
+        BackgroundHeight = GetSize(Background, false);
 
-        GroundWidth = Ground.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
-        GroundHeight = Ground.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+        GroundWidth = GetSize(Ground, true);
+        GroundHeight = GetSize(Ground, false);
 
-        int numBackground = 15;
+        double ratio = (GroundWidth / BackgroundWidth);
+        Debug.Log(ratio);
+
+        int GameWidth = 2;
+
+        int numBackground = (int) (ratio * GameWidth);
         for (int i = 0; i < numBackground; i++) {
-            Instantiate(Background, (new Vector3(-6 + i * BackgroundWidth, BackgroundHeight / 2 + GroundHeight / 2, 0)), Quaternion.identity);
+            Instantiate(Background, (new Vector3(-6 + i * BackgroundWidth, BackgroundHeight / 2 + GroundHeight / 2 - 0.3f, 0.5f)), Quaternion.identity);
         }
 
-        int numGround = 5;
+        int numGround = GameWidth;
         floorObjects = new GameObject[numGround];
         for (int i = 0; i < numGround; i++)
         {
-            floorObjects[i] = (GameObject) Instantiate(Ground, (new Vector3(i * BackgroundWidth - BackgroundWidth / 2, 0, 0)), Quaternion.identity);
+            floorObjects[i] = (GameObject) Instantiate(Ground, (new Vector3(i * GroundWidth, 0, 0)), Quaternion.identity);
         }
-        
-	}
+
+        placeObstacles();
+
+
+    }
+
+    private float GetSize(GameObject o, bool x)
+    {
+        if (x)
+            return o.GetComponent<SpriteRenderer>().sprite.bounds.size.x * o.transform.localScale.x;
+
+        return o.GetComponent<SpriteRenderer>().sprite.bounds.size.y * o.transform.localScale.y;
+    }
 
     public GameObject[] getFloorObjects()
     {
         return floorObjects;
     }
-	
+
+    private void placeObstacles()
+    {
+        int numObjects = 5;
+        for (int i = 0; i < numObjects; i++)
+        {
+            Instantiate(Obstacles[Random.Range(0, Obstacles.Length)], new Vector3(Random.Range(5, 25), .32f + GroundHeight / 2, 0), Quaternion.identity);
+        }
+        
+    }
+
+
 	// Update is called once per frame
 	void Update () {
 	
